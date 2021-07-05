@@ -38,7 +38,11 @@ class ChatInboxController extends Controller
 
         if (auth()->user()->utype === 'USR') {
             $messages = Message::where('user_id', auth()->id())->orWhere('receiver', auth()->id())->orderBy('id', 'DESC')->get();
-        } else {
+        } 
+            else if ($usr->utype == null || $usr->department == null ){
+            abort(404);
+        }
+            else {
             $messages = Message::where('user_id', $sender)->orWhere('receiver', $sender)->orderBy('id', 'DESC')->get();
         }
 
