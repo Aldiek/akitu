@@ -49,6 +49,9 @@ class InboxController extends Controller
             'sender' => $sender,
         ]);
         }
+        else if ($usr->utype == null){
+            abort(404);
+        }
         else{
             abort(404);
         }
