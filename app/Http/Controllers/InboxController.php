@@ -27,8 +27,10 @@ class InboxController extends Controller
     public function show($id) {
 
         $usr=User::find($id);
-
-        if (auth()->user()->utype === 'SADM' && $usr->utype ==='ADM') {
+   if ($usr->utype == null){
+            abort(404);
+        }
+        else if (auth()->user()->utype === 'SADM' && $usr->utype ==='ADM') {
              $sender = User::findOrFail($id);
 
         $users = User::with(['message' => function($query) {
@@ -48,9 +50,6 @@ class InboxController extends Controller
             'messages' => $messages,
             'sender' => $sender,
         ]);
-        }
-        else if ($usr->utype == null){
-            abort(404);
         }
         else{
             abort(404);
