@@ -11,7 +11,7 @@ class TaskTimeController extends Controller
 {
         public function index($id) {
             
-         $taskSel=Task::where('user_id',$id)->get();
+         $taskSel=(Task::where('user_id',$id)->get())?Task::where('user_id',$id)->get():null;
          $userID= $id;
          if($taskSel== null){
                 $taskSel = new Task();
